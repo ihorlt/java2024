@@ -1,9 +1,5 @@
 package ua.edu.nung.pz.model;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.UserRecord;
-
 import java.util.Objects;
 
 public class User {

@@ -3,6 +3,7 @@ package ua.edu.nung.pz.view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -55,7 +56,7 @@ public class IndexView {
     private String getHtml(String filename) {
         StringBuilder strb = new StringBuilder("\n");
         Path file = Paths.get(path + filename + ".html");
-        Charset charset = Charset.forName("UTF-8");
+        Charset charset = StandardCharsets.UTF_8;
 
         try (BufferedReader reader = Files.newBufferedReader(file, charset))
         {
