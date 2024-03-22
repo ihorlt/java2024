@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * в консолі, де mysql - це назва сервісу у системі ver MySQL 8.0.31
  * mysql -u root
- * show databases;
+ * SHOW DATABASES;
  * DROP DATABASE your_schema_name;
  * CREATE DATABASE webapp CHARACTER SET utf8 COLLATE utf8_general_ci;
  * USE your_schema_name;
