@@ -24,3 +24,26 @@ create table goods
     likes       int          null
 );
 
+create table webapp.types
+(
+    id         int auto_increment
+        primary key,
+    name       varchar(15) not null,
+    deleted_at date        null
+);
+
+create table webapp.goods_types
+(
+    id      int auto_increment
+        primary key,
+    good_id int null,
+    type_id int null,
+
+    constraint goods_types_goods_id_fk
+        foreign key (good_id) references webapp.goods (id)
+            on update set null on delete set null,
+    constraint goods_types_types_id_fk
+        foreign key (type_id) references webapp.types (id)
+            on update set null on delete set null
+);
+
