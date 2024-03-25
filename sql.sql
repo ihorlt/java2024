@@ -47,3 +47,19 @@ create table webapp.goods_types
             on update set null on delete set null
 );
 
+create table webapp.prices
+(
+    id            int auto_increment
+        primary key,
+    from_supplier double not null,
+    for_client    double not null,
+    created_at    date   not null,
+    deleted_at    date   null,
+    good_id       int    null,
+    constraint prices_goods_id_fk
+        foreign key (good_id) references webapp.goods (id)
+            on update set null on delete set null
+);
+
+
+
