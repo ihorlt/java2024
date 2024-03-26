@@ -52,6 +52,13 @@ public class StartServlet extends HttpServlet {
 
         out.println(IndexView.getInstance().getPage("Green Shop", body));
 
+        String builderPage = MainPage.Builder.newInstance()
+                .setTitle("Green Shop")
+                .build()
+                .getFullPage();
+
+        System.out.println(builderPage);
+
 //        user.setEmail("email1@email.com");
 //        user.setPassword("112211221122");
 //        user.setDisplayName("Test User");
