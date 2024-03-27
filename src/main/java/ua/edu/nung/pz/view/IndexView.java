@@ -34,7 +34,7 @@ public class IndexView {
         String html = getHtml("headerPartial");
         if (userName.length() > 0) {
             html = conditionalTextDelete(html, "usernameNotLogin")
-                    .replace("<!--###username###-->", userName);;
+                    .replace("<!--###username###-->", userName);
         } else {
             html = conditionalTextDelete(html, "usernameLoginedIn");
         }

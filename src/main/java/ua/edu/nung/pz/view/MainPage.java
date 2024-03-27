@@ -32,7 +32,7 @@ public class MainPage {
         public void setPath(String path) {
             this.path = path;
         }
-        private static String getHtml(String filename) {
+        private String getHtml(String filename) {
             StringBuilder strb = new StringBuilder("\n");
             Path file = Paths.get(path + filename + ".html");
             Charset charset = StandardCharsets.UTF_8;
@@ -75,13 +75,20 @@ public class MainPage {
             path = ViewConfig.getInstance().getPath();
             return new Builder();
         }
-        public Builder setHeader(String header) {
-            this.header = header;
+        public Builder setHeader(String userName) {
+            String html = getHtml("headerPartial");
+            if (userName.length() > 0) {
+                html = conditionalTextDelete(html, "usernameNotLogin")
+                        .replace("<!--###username###-->", userName);
+            } else {
+                html = conditionalTextDelete(html, "usernameLoginedIn");
+            }
+            this.header = html;
             return  this;
         }
 
-        public Builder setFooter(String footer) {
-            this.footer = footer;
+        public Builder setFooter() {
+            this.footer = getHtml("footerPartial");
             return this;
         }
 
@@ -91,9 +98,15 @@ public class MainPage {
         }
 
         public MainPage build() {
-            emptyPage = getHtml("emptyPage");
-            this.fullPage = this.title != null ? emptyPage.replace("<!--####title###-->", title)
-                    : emptyPage;
+            this.fullPage = getHtml("emptyPage");
+            this.fullPage = this.title != null ? this.fullPage.replace("<!--####title###-->", title)
+                    : this.fullPage;
+
+            this.fullPage = this.header != null ? this.fullPage.replace("<!--####header###-->", header)
+                    : this.fullPage;
+
+            this.fullPage = this.footer != null ? this.fullPage.replace("<!--####footer###-->", footer)
+                    : this.fullPage;
             return new MainPage(this);
         }
     }

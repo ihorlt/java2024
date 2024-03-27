@@ -1,0 +1,63 @@
+<div class="modal fade" tabindex="-1" id="modal-login-form-main-topbar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Login / Register</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="login" class="my-5" method="post" id="main-topbar-modal-id-form">
+                    <div class="mb-3">
+                        <label for="webshop-login-form-email" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="webshop-login-form-email" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="webshop-login-form-password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="webshop-login-form-password" name="password">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="main-topbar-modal-id-form" data-bs-dismiss="modal">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><span class="text-success">Green Shop</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/goods/index">Goods</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart/index">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contacts">Contacts</a>
+                </li>
+            </ul>
+            <!--Variable ###usernameNotLogin###-->
+            <div>
+                <button class="btn btn-outline-success" type="button" id="main-topbar-login-button"
+                        data-bs-toggle="modal" data-bs-target="#modal-login-form-main-topbar">Login</button>
+            </div>
+            <!--endVariable-->
+            <!--Variable ###usernameLoginedIn###-->
+            <div>
+                <button class="btn btn-outline-success" type="button" id="main-topbar-login-button"
+                        data-bs-toggle="modal" data-bs-target="#modal-login-form-main-topbar">Log out <!--###username###--></button>
+            </div>
+            <!--endVariable-->
+        </div>
+    </div>
+</nav>

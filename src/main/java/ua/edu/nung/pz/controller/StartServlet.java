@@ -54,6 +54,8 @@ public class StartServlet extends HttpServlet {
 
         String builderPage = MainPage.Builder.newInstance()
                 .setTitle("Green Shop")
+                .setHeader(userName)
+                .setFooter()
                 .build()
                 .getFullPage();
 
@@ -100,9 +102,10 @@ public class StartServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
         String path = getServletContext().getRealPath("html/");
+        String pathBuilder = getServletContext().getRealPath("htmlBuilder/");
 
         ViewConfig viewConfig = ViewConfig.getInstance();
-        viewConfig.setPath(path);
+        viewConfig.setPath(pathBuilder);
 
         IndexView indexView = IndexView.getInstance();
         indexView.setPath(path);
