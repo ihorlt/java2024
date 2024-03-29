@@ -1,4 +1,4 @@
-package ua.edu.nung.pz.model;
+package ua.edu.nung.pz.dao.entity;
 
 import java.util.Arrays;
 import java.util.Objects;
