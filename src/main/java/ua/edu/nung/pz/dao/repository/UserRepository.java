@@ -20,7 +20,7 @@ public class UserRepository {
                 )
         {
             if (resultSet.next()) {
-                user.setId(resultSet.getInt("id"));
+                user.setId(resultSet.getLong("id"));
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setDisplayName(resultSet.getString("displayName"));
