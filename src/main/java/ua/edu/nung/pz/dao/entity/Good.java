@@ -46,6 +46,19 @@ public class Good {
         return description;
     }
 
+    public String getShortDescription() {
+        if (description == null || description.isEmpty()) {
+            return "";
+        }
+        int firstDotIndex = description.indexOf(".");
+        int maxLength = 200;
+
+        if(firstDotIndex != -1 && firstDotIndex <= maxLength) {
+            return description.substring(0, firstDotIndex + 1);
+        }
+        return description.substring(0, Math.min(description.length(), maxLength));
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }

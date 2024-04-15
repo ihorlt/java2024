@@ -9,7 +9,10 @@ public class Price {
     private double from_supplier;
     private double for_client;
 
+    // number of goods with the price
     private int income;
+
+    // number of sold goods
     private int outcome;
     private String created_at;
     private String deleted_at;

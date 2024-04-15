@@ -20,32 +20,17 @@ public class GoodsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        // TODO remove test data
-        // testing data
-//        String lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in porta lectus, a suscipit ex. Cras quis pretium nisl, id bibendum nisl. Vivamus id enim id lectus ullamcorper auctor at pretium velit. Quisque mattis nisi eget metus finibus, id pretium lacus maximus. Pellentesque lobortis facilisis suscipit. ";
-//        String photos[] = new String[3];
-//        ArrayList<Good> goods = new ArrayList<>();
-//        for (int i = 0; i < 15; i++) {
-//            goods.add(new Good(
-//                    i + 1,
-//                    "Good " + (i + 1),
-//                    lorem,
-//                    "Brand " + (i + 1),
-//                    photos,
-//                    (i + 4)
-//            ));
-//        }
-
         GoodRepository goodRepository = new GoodRepository();
-        ArrayList<Good>  goods = goodRepository.getAll();
+        ArrayList<Good>  goods = goodRepository.getByBrand("Naturalis");
 
         String body = goods.stream().map(good -> {
             return "<div class=\"col-12 col-sm-6 col-lg-4 col-xl-3 my-2\">" +
                     "<div class=\"card\" style=\"width: 18rem;\">\n" +
+                    "<img src=\"/img/" + (good.getPhoto().length > 0 ? good.getPhoto()[0] : "") + "\" class=\"card-img-top\" alt=\"good image\">" +
                     "  <div class=\"card-body\">\n" +
                     "    <h5 class=\"card-title\">" + good.getName() + "</h5>\n" +
                     "    <h6 class=\"card-subtitle mb-2 text-body-secondary\">Price:" + good.getPrice().getFor_client() + " UAH</h6>\n" +
-                    "    <p class=\"card-text\">" + good.getDescription() + "</p>\n" +
+                    "    <p class=\"card-text\">" + good.getShortDescription() + "</p>\n" +
                     "    <a href=\"#\" class=\"card-link\">Card link</a>\n" +
                     "    <a href=\"#\" class=\"card-link\">Another link</a>\n" +
                     "  </div>\n" +
