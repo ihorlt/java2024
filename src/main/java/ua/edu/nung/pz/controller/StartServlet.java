@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.*;
 import ua.edu.nung.pz.dao.entity.Firebase;
 import ua.edu.nung.pz.dao.entity.User;
 import ua.edu.nung.pz.dao.repository.UserRepository;
@@ -18,6 +19,7 @@ import java.util.Properties;
 
 @WebServlet(name = "StartServlet", urlPatterns = {"/*"}, loadOnStartup = 1)
 public class StartServlet extends HttpServlet {
+    private static final Logger logger = Logger.getLogger(StartServlet.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,6 +29,8 @@ public class StartServlet extends HttpServlet {
         HttpSession httpSession = request.getSession();
         User user = (User) httpSession.getAttribute(User.USER_SESSION_NAME);
         String userName = user == null ? "" : user.getDisplayName();
+
+        logger.info("Successfully started");
 
         switch (request.getPathInfo()) {
             case "/contacts":
@@ -101,6 +105,7 @@ public class StartServlet extends HttpServlet {
         viewConfig.setPath(pathBuilder);
 
         initFirebase();
+        initLogger();
     }
 
     private void initFirebase() {
@@ -116,5 +121,17 @@ public class StartServlet extends HttpServlet {
         Firebase.getInstance().setApiKey(props.getProperty("web.api.key"));
         Firebase.getInstance().setSignInUrl(props.getProperty("signInUrl"));
         Firebase.getInstance().init();
+    }
+
+    private void initLogger() {
+        try {
+            Handler fh = new FileHandler(getServletContext().getRealPath("logs/app.log"));
+            fh.setFormatter(new SimpleFormatter());
+            Logger.getLogger("").addHandler(fh);
+            Logger.getLogger("").addHandler(new ConsoleHandler());
+            Logger.getLogger("").setLevel(Level.INFO);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
