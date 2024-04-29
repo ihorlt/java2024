@@ -63,5 +63,16 @@ create table prices
             on update set null on delete set null
 );
 
+create table webapp.orders
+(
+    id         int auto_increment
+        primary key,
+    user_id    int              not null,
+    price_id   int              not null,
+    is_paid    bit default b'0' not null,
+    created_at datetime         not null,
+    deleted_at datetime         null
+);
+
 
 

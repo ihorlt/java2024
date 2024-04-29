@@ -26,9 +26,13 @@ public class StartServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String context = "";
-        HttpSession httpSession = request.getSession();
-        User user = (User) httpSession.getAttribute(User.USER_SESSION_NAME);
-        String userName = user == null ? "" : user.getDisplayName();
+        HttpSession httpSession = request.getSession(false);
+        User user;
+        String userName = "";
+        if (httpSession != null) {
+            user = (User) httpSession.getAttribute(User.USER_SESSION_NAME);
+            userName = user == null ? "" : user.getDisplayName();
+        }
 
         logger.info("Successfully started");
 
@@ -83,11 +87,12 @@ public class StartServlet extends HttpServlet {
                 user.setDisplayName("Best User");
                 httpSession = request.getSession();
                 httpSession.setAttribute(User.USER_SESSION_NAME, user);
+                logger.info("Successfully login " + user.getEmail());
             }  else {
-                System.out.println("Wrong Password");
+                logger.info("Wrong Password " + user.getEmail());
             }
         } else {
-            System.out.println("User NOT Exist");
+            logger.info("User NOT Exist " + user.getEmail());
             String userMsg = Firebase.getInstance().createUser(user);
         }
 
