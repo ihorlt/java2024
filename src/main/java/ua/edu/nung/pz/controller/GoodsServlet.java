@@ -6,9 +6,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import ua.edu.nung.pz.dao.entity.Cart;
 import ua.edu.nung.pz.dao.entity.Good;
+import ua.edu.nung.pz.dao.entity.Order;
 import ua.edu.nung.pz.dao.entity.User;
 import ua.edu.nung.pz.dao.repository.GoodRepository;
+import ua.edu.nung.pz.dao.repository.OrderRepository;
 import ua.edu.nung.pz.view.MainPage;
 
 import java.io.IOException;
@@ -29,23 +32,7 @@ public class GoodsServlet extends HttpServlet {
             userName = user == null ? "" : user.getDisplayName();
         }
 
-        String priceStr = request.getParameter("priceid");
-        if (priceStr != null) {
-            long priceId = 0l;
-            try {
-                priceId = Long.parseLong(priceStr);
-            } catch (NumberFormatException e) {
-                e.printStackTrace();
-            }
-            // check if user logged in
-            if(user != null) {
-                System.out.println("User " + user);
-            }
-
-            if (priceId > 0) {
-                response.sendRedirect("/goods/");
-            }
-        }
+        Cart cart = addItem(request, response, user);
 
 
         GoodRepository goodRepository = new GoodRepository();
@@ -87,5 +74,40 @@ public class GoodsServlet extends HttpServlet {
                 .getFullPage();
 
         out.println(builderPage);
+    }
+
+    private Cart addItem(HttpServletRequest request, HttpServletResponse response, User user) throws IOException {
+        Cart cart = new Cart();
+
+        String priceStr = request.getParameter("priceid");
+        if (priceStr != null) {
+            long priceId = 0l;
+            try {
+                priceId = Long.parseLong(priceStr);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            // check if user logged in
+            if(user != null) {
+
+                Order order = new Order(
+                        0l,
+                        user.getId(),
+                        priceId,
+                        false,
+                        "2024-04-29",
+                        null
+                );
+                System.out.println("order " + order);
+                OrderRepository orderRepository = new OrderRepository();
+                orderRepository.saveOrUpdate(order);
+            }
+
+            if (priceId > 0) {
+                response.sendRedirect("/goods/");
+            }
+        }
+
+        return cart;
     }
 }
