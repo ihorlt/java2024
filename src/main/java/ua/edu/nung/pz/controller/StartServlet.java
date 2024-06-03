@@ -57,12 +57,6 @@ public class StartServlet extends HttpServlet {
 
         out.println(builderPage);
 
-        // TODO remove test code
-        UserRepository userRepository = new UserRepository();
-        User user1 = userRepository.getUserByEmail("ihorlt@gmail.com");
-        System.out.println(user1);
-
-
 //        user.setEmail("email1@email.com");
 //        user.setPassword("112211221122");
 //        user.setDisplayName("Test User");
@@ -83,11 +77,12 @@ public class StartServlet extends HttpServlet {
         if (firebase.getUserByEmail(user.getEmail()).equals(Firebase.USER_EXISTS)) {
             String firebaseResponse = firebase.signInWithEmailAndPassword(user.getEmail(), user.getPassword());
             if(firebaseResponse.equals(Firebase.PASSWORD_OK)) {
-                System.out.println(Firebase.PASSWORD_OK);
+                UserRepository userRepository = new UserRepository();
+                User userDb = userRepository.getUserByEmail(user.getEmail());
                 user.setDisplayName("Best User");
                 httpSession = request.getSession();
-                httpSession.setAttribute(User.USER_SESSION_NAME, user);
-                logger.info("Successfully login " + user.getEmail());
+                httpSession.setAttribute(User.USER_SESSION_NAME, userDb);
+                logger.info("Successfully login " + userDb);
             }  else {
                 logger.info("Wrong Password " + user.getEmail());
             }

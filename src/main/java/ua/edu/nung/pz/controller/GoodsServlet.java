@@ -98,7 +98,6 @@ public class GoodsServlet extends HttpServlet {
                         "2024-04-29",
                         null
                 );
-                System.out.println("order " + order);
                 OrderRepository orderRepository = new OrderRepository();
                 orderRepository.saveOrUpdate(order);
             }
